@@ -1,0 +1,82 @@
+#initialBoard {
+    /* margin: auto; */
+    float: left;
+    margin-left: 35%;
+    margin-top: 5%;
+}
+
+#answerBoard {
+    margin-right: 20%;
+    float: right;
+    margin-top: 10%;
+}
+p{
+    font-size: 20px;
+}
+input{
+    font-size: 17px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    margin-left: 0px;
+    margin-right: 0px;
+    border: 1px solid black;
+    width: 50px;
+    height: 50px;
+}
+button{
+    font-size: 30px;
+    margin-left: 10px;
+    margin-top: 5%;
+}
+h2 {
+    text-align: center;
+    margin-top: 6%;
+}
+.author{
+    font-size: 17px;
+}
+
+/* input
+{
+    color: rgb(102, 102, 102);
+} */
+
+.cell 
+{
+    /* border-color: rgb(31, 91, 221); */
+    float: left;
+    /* float: top; */
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+
+/* Alert Function CSS */
+#alert {
+    position: fixed;
+    top: 0;
+	display:none;
+    padding: 10px;
+    width: 100%;
+    margin: 0px auto;
+    background-color: #f44336;
+    color: white;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    text-align: center;
+}
+
+.closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}

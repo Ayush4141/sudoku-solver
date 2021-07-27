@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sudoku solver</title>
+
+    <link href="./style.css" rel="stylesheet" type="text/css">
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- 
+        <link href="https://code.ionicframework.com/1.0.0-beta.6/css/ionic.css" rel="stylesheet">
+        <script src="https://code.ionicframework.com/1.0.0-beta.6/js/ionic.bundle.js"></script> -->
+</head>
+
+<body>
+
+    <!-- Button trigger modal -->
+    <button id="alert-btn" style="display: none;" type="button" class="btn btn-primary" data-toggle="modal"
+        data-target="#exampleModal">
+        Launch demo modal
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p class="modal-title" id="exampleModalLabel">Something Went Wrong</p>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h4 id="alert-text"></h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<nav class="navbar navbar-dark bg-dark justify-content-between" style="background-color: #303d46;">
+    <h1 style="font-size: 1.9rem;" class="navbar-brand">Soduko Solver</h1>
+    <div style="float: right;">
+        <button onclick="initiate()" class="btn btn-primary mx-2">Solve</button>
+        <button onclick="clearIt()" class="btn btn-primary mx-2">Reset</button>
+    </div>
+</nav>
+
+    <div id="initialBoard">
+        <input class="cell" id="1" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+        <input class="cell" id="2" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+        <input class="cell" id="3" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+        <input class="cell" id="4" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+        <input class="cell" id="5" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+        <input class="cell" id="6" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+        <input class="cell" id="7" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+        <input class="cell" id="8" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+        <input class="cell" id="9" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+        <br>
+        <input class="cell" id="10" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="11" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="12" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="13" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="14" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="15" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="16" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="17" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="18" type="number" maxlength="1" max="9" min="1">
+        <br>
+        <input class="cell" id="19" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="20" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="21" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="22" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="23" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="24" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="25" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="26" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="27" type="number" maxlength="1" max="9" min="1">
+        <br>
+        <input class="cell" id="28" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="29" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="30" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="31" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="32" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="33" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="34" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="35" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="36" type="number" maxlength="1" max="9" min="1">
+        <br>
+        <input class="cell" id="37" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="38" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="39" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="40" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="41" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="42" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="43" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="44" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="45" type="number" maxlength="1" max="9" min="1">
+        <br>
+        <input class="cell" id="46" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="47" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="48" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="49" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="50" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="51" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="52" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="53" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="54" type="number" maxlength="1" max="9" min="1">
+        <br>
+        <input class="cell" id="55" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="56" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="57" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="58" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="59" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="60" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="61" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="62" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="63" type="number" maxlength="1" max="9" min="1">
+        <br>
+        <input class="cell" id="64" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="65" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="66" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="67" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="68" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="69" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="70" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="71" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="72" type="number" maxlength="1" max="9" min="1">
+        <br>
+        <input class="cell" id="73" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="74" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="75" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="76" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="77" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="78" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="81" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="79" type="number" maxlength="1" max="9" min="1">
+        <input class="cell" id="80" type="number" maxlength="1" max="9" min="1">
+        <br>
+    </div>
+
+    <div id="answerBoard">
+        <p id="row 1"></p>
+        <!-- <p id="row 2"></p>
+        <p id="row 3"></p>
+        <p id="row 4"></p>
+        <p id="row 5"></p>
+        <p id="row 6"></p>
+        <p id="row 7"></p>
+        <p id="row 8"></p>
+        <p id="row 9"></p> -->
+    </div>
+    <script>
+        // const placeHolder = "  "
+        // for (var i = 1; i <= 9; i++) {
+        //     document.getElementById("row " + String(i)).innerHTML = placeHolder + "\xa0\xa0\xa0\xa0\xa0\xa0" + placeHolder + "\xa0\xa0\xa0\xa0\xa0\xa0" + placeHolder + "\xa0\xa0\xa0\xa0\xa0\xa0" + placeHolder + "\xa0\xa0\xa0\xa0\xa0\xa0" + placeHolder + "\xa0\xa0\xa0\xa0\xa0\xa0" + placeHolder + "\xa0\xa0\xa0\xa0\xa0\xa0" + placeHolder + "\xa0\xa0\xa0\xa0\xa0\xa0" + placeHolder + "\xa0\xa0\xa0\xa0\xa0\xa0" + placeHolder
+        // }
+    </script>
+
+
+    <!-- Show Alert Function -->
+    <!-- <script>
+        function showAlert() {
+            // var alert = ;
+            $("#alert").slideDown("slow");
+            // document.getElementById('alert').style.display = 'block';
+        }
+
+        function closeAlert() {
+            $("#alert").slideUp("slow");
+        }
+        showAlert();
+    </script> -->
+
+    <script src="./js/solver.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
